@@ -5,6 +5,7 @@
   Richard Konecny & Arron Fitt
 */
 #include <libterra/XMLDocument.h>
+#include <libterra/TypeConv.h>
 #include <libterra/Bitmap.h>
 
 #include <vector>
@@ -259,15 +260,13 @@ vector<tfBlocks> ImportXML(){
   ====================
 */
 void ExportXML(vector<tfBuildings> buildings){
-	//buffer for storing int value
-	char buffer[33];
 	LibTerra::tfXMLDocument doc; //XML document
 	//create XML document
 	LibTerra::tfXMLNode root = doc.CreateRoot("buildingmap");
 	//write version and dimensions to XML doc
 	root.AppendAttribute("version").SetValue("0.1.0");
-	root.AppendChild("width").SetValue(itoa(mapWidth,buffer,10));
-	root.AppendChild("height").SetValue(itoa(mapHeight,buffer,10));
+	root.AppendChild("width").SetValue(LibTerra::Convert<int, const char*>(mapWidth));
+	root.AppendChild("height").SetValue(LibTerra::Convert<int, const char*>(mapHeight));
 	LibTerra::tfXMLNode nodeBuildings = root.AppendChild("buildings");
 	//open elevation map
 	LibTerra::tfBitmap b(heightFile);
@@ -299,15 +298,15 @@ void ExportXML(vector<tfBuildings> buildings){
 	for (vector<tfBuildings>::iterator it = buildings.begin(); it != buildings.end(); ++it) {
 		//create nodes and their attributes
 		LibTerra::tfXMLNode nodeBuilding = nodeBuildings.AppendChild("building");
-		nodeBuilding.AppendAttribute("id").SetValue(itoa(it-buildings.begin(),buffer,10));
+		nodeBuilding.AppendAttribute("id").SetValue(LibTerra::Convert<int, const char*>(it-buildings.begin()));
 		nodeBuilding.AppendAttribute("type").SetValue(it->ReturnType());
-		nodeBuilding.AppendAttribute("numberOfFloors").SetValue(itoa(it->floors,buffer,10));
+		nodeBuilding.AppendAttribute("numberOfFloors").SetValue(LibTerra::Convert<int, const char*>(it->floors));
 		//save all buildings from vector of tfBuildings
 		for (vector<tfPoints>::iterator it2 = it->points.begin(); it2 != it->points.end(); ++it2) {
 			LibTerra::tfXMLNode nodeBasePoint = nodeBuilding.AppendChild("basepoint");
-			nodeBasePoint.AppendAttribute("id").SetValue(itoa(it2-it->points.begin(),buffer,10));
-			nodeBasePoint.AppendAttribute("absX").SetValue(itoa(it2->x,buffer,10));
-			nodeBasePoint.AppendAttribute("absY").SetValue(itoa(it2->y,buffer,10));
+			nodeBasePoint.AppendAttribute("id").SetValue(LibTerra::Convert<int, const char*>(it2-it->points.begin()));
+			nodeBasePoint.AppendAttribute("absX").SetValue(LibTerra::Convert<int, const char*>(it2->x));
+			nodeBasePoint.AppendAttribute("absY").SetValue(LibTerra::Convert<int, const char*>(it2->y));
 			char cVal[32];
 			sprintf(cVal,"%f",it2->z);
 			nodeBasePoint.AppendAttribute("absZ").SetValue(cVal);
