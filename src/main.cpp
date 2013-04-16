@@ -4,14 +4,16 @@
   Version 1.2
   Richard Konecny & Arron Fitt
 */
+#include <libterra/XMLDocument.h>
+#include <libterra/Bitmap.h>
+
 #include <vector>
-#include "tfBlocks.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include "XMLDocument.h"
-#include "Bitmap.h"
+#include <cstdio>
+#include <cstdlib>
+#include <cmath>
 #include <iostream>
+
+#include "tfBlocks.h"
 
 using namespace std;
 
