@@ -1,5 +1,5 @@
 #include "tfBuildings.h"
-#include <random>
+#include <cstdlib>
 
 tfBuildings::tfBuildings(vector<tfPoints> points, BuildingType_t buildingType){
 	this->points=points;

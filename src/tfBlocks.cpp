@@ -1,5 +1,8 @@
 #include "tfBlocks.h"
 
+#include <cstdlib>
+#include <cmath>
+
 tfBlocks::tfBlocks(vector<tfPoints> points){
 	this->points=points;
 }
