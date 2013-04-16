@@ -17,6 +17,13 @@
 
 using namespace std;
 
+// The 5 command line arguments
+char* heightFile;
+char* densityFile;
+char* waterFile;
+char* roadFile;
+char* plotFile;
+
 double scale=1, //map scale 1=512x512
 	scale2=scale/3, //unit scale 1 unit represents 1/3 of meter
 	mapWidth,
@@ -83,7 +90,7 @@ vector<tfBlocks> ImportXML(){
 	LibTerra::tfXMLDocument doc; //xml document
 
 	//import xml and create list of nodes and relations
-	bool success = doc.Parse("road_map.xml");
+	bool success = doc.Parse((const char*)roadFile);
 	//test if file exists
 	if (!success) {
 		std::cerr << "XML Parse failed with error: " << doc.LastError() << std::endl;
@@ -223,7 +230,7 @@ vector<tfBlocks> ImportXML(){
 		blocks.push_back(tfBlocks(points));
 	}
 	// Load the bitmap
-	LibTerra::tfBitmap b("population_density_map.bmp");
+	LibTerra::tfBitmap b((const char*)densityFile);
 	//set block population density for all blocks, block population density is equal to average of
 	//population densities in all block vertices
 	for(vector<tfBlocks>::iterator it=blocks.begin();it != blocks.end(); ++it){
@@ -264,7 +271,7 @@ void ExportXML(vector<tfBuildings> buildings){
 	root.AppendChild("height").SetValue(itoa(mapHeight,buffer,10));
 	LibTerra::tfXMLNode nodeBuildings = root.AppendChild("buildings");
 	//open elevation map
-	LibTerra::tfBitmap b("elevation_map.bmp");
+	LibTerra::tfBitmap b(heightFile);
 	//set Z coordinate to every corner of every building, all corners within the same building will
 	//have the same value, that equals the minimal imported value at locations of bulding corners
 	for(vector<tfBuildings>::iterator it=buildings.begin();it != buildings.end(); ++it){
@@ -308,14 +315,20 @@ void ExportXML(vector<tfBuildings> buildings){
 		}
 	}
 	//save file
-	if (!doc.Write("building_map.xml")) {
+	if (!doc.Write((const char*)plotFile)) {
 		std::cerr << "unable to write document" << doc.LastError() << std::endl;
 	}
 }
 
 //Author: Richard Konecny
-int main(int argc, char **argv)
+int main(int argc, char* argv[])
 {
+	heightFile = argv[1];
+	densityFile = argv[2];
+	waterFile = argv[3];
+	roadFile = argv[4];
+	plotFile = argv[5];
+
 	vector <tfPoints> points;
 	//import XML
 	vector<tfBlocks>blocks=ImportXML();
