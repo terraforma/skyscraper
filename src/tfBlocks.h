@@ -3,7 +3,13 @@
 
 using namespace std;
 
-enum AreaType_t :	char { BSKYSCRAPER, BCOMMERCIAL, BRESIDENTAL, TOO_SMALL, PARK};
+enum AreaType_t {
+	BSKYSCRAPER,
+	BCOMMERCIAL,
+	BRESIDENTAL,
+	TOO_SMALL,
+	PARK
+};
 
 /*
 ===========================================================================

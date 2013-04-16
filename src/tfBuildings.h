@@ -4,7 +4,11 @@
 
 using namespace std;
 
-enum BuildingType_t :	char { SKYSCRAPER, COMMERCIAL, RESIDENTAL};
+enum BuildingType_t {
+	SKYSCRAPER,
+	COMMERCIAL,
+	RESIDENTAL
+};
 
 /*
 ===========================================================================
