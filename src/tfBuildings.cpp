@@ -30,7 +30,7 @@ void tfBuildings::SetNumberOfFloors(int population, int limits[]){
 	//calculation of number of floors for commercial buildings
 	else if(population < limits[2] && population >= limits[1]){
 		int min = 20;
-		float max = 70;	//Tallest commerial building in New York										
+		float max = 70;	//Tallest commerial building in New York
 		int FloorNum;
 		int l1=limits[1],l2=limits[2];
 		//random range is 0-9 floors
@@ -44,7 +44,7 @@ void tfBuildings::SetNumberOfFloors(int population, int limits[]){
 		float max = 102; //Tallest skyscraper in New York
 		int FloorNum;
 		int l1=limits[2],l2=limits[3];
-		FloorNum=min+((population-l1)/((l2-l1)/(max-min)));	
+		FloorNum=min+((population-l1)/((l2-l1)/(max-min)));
 		this->floors=FloorNum;
 	}
 }

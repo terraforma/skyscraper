@@ -12,7 +12,7 @@ tfBlocks::tfBlocks(vector<tfPoints> points){
 ScaleBlockArea
 
 Author: Richard Konecny
-Shortens sides of block so there will remain enough place for roads. 
+Shortens sides of block so there will remain enough place for roads.
 NOTE: roads in the locations with higher population density are wider
 ====================
 */
@@ -21,16 +21,16 @@ void tfBlocks::ScaleBlockArea(int limits[],double scale){
 	vector<double> angles(points.size()); //angles between all the adjacent block sides
 	vector<tfPoints> returnPoints(points.size()), //points that will replace current ones in the end
 		tempPoints(2); //temporary points used for calculations of returnPoints
-	double angleSum=0.0f, //total sum of angles, used to determine if the vertices are in clockwise 
+	double angleSum=0.0f, //total sum of angles, used to determine if the vertices are in clockwise
 		//or anticlockwise order
 		tempAngle, //temporary angle used for calculations of returnPoints
 		xDist, //distance that needs to be reducted in X axis
 		yDist, //distance that needs to be reducted in Y axis (in case that block side is vertical)
-		A1,B1,C1,A2,B2,C2, //parameters of general line equation (Ax+By+C=0) for 2 adjacent block 
+		A1,B1,C1,A2,B2,C2, //parameters of general line equation (Ax+By+C=0) for 2 adjacent block
 		//sides
 		reduction; //length to be reduces from each block side
 	bool clockwise=false; //are vertices in clockwise or anticlockwise order?
-	int tempPosNeg=1, //temporary variable used to change side on which reduction needs to be 
+	int tempPosNeg=1, //temporary variable used to change side on which reduction needs to be
 		//applied according to order of block vertices
 		intAng; //angle between adjacent sides saved as integer calculate the reduction length based
 	//on population density
@@ -47,7 +47,7 @@ void tfBlocks::ScaleBlockArea(int limits[],double scale){
 		vectors[i]=tfVector(points[i].x-points[(i+1)%points.size()].x,
 			points[i].y-points[(i+1)%points.size()].y, 0);
 	}
-	for(int i=0;i<points.size();i++){ 
+	for(int i=0;i<points.size();i++){
 		//calculate angle between vectors, in range (-180 - +180)
 		angles[i]=((atan2(vectors[(i+1)%points.size()].y,
 			vectors[(i+1)%points.size()].x)
@@ -92,7 +92,7 @@ void tfBlocks::ScaleBlockArea(int limits[],double scale){
 		B1=tempPoints[0].x-tempPoints[1].x ;
 		C1=A1*tempPoints[0].x+B1*tempPoints[0].y;
 		//Second line
-		//the same proccess as it was used for the first line calculation is now being applied to 
+		//the same proccess as it was used for the first line calculation is now being applied to
 		//second line
 		tempAngle=acos(vectors[(j+1)%points.size()].DotProduct(tfVector(-1,0,0))/
 			(vectors[(j+1)%points.size()].Magnitude()*
@@ -124,7 +124,7 @@ void tfBlocks::ScaleBlockArea(int limits[],double scale){
 			returnPoints[j].y=(A1*C2-A2*C1)/(A1*B2-A2*B1);
 		}
 	}
-	//replace block vertices by intersections of lines that have been shifted by required length 
+	//replace block vertices by intersections of lines that have been shifted by required length
 	//(reduction)
 	points=returnPoints;
 }
@@ -166,14 +166,14 @@ void tfBlocks::SetAreaType(int limits[],double scale){
 	else if(this->Area() >= scale*scale*60 && population >= limits[1] &&  population < limits[2])
 		this->areaType=BCOMMERCIAL;
 	//check defined conditions for skyscrapers
-	else if(this->Area() >= scale*scale*600 && this->Area() <= scale*scale*2600 && 
-		population >= limits[2])	
+	else if(this->Area() >= scale*scale*600 && this->Area() <= scale*scale*2600 &&
+		population >= limits[2])
 		this->areaType=BSKYSCRAPER;
 	//check defined conditions for parks. Size of smallest park of significance in New York
 	//http://en.wikipedia.org/wiki/List_of_New_York_City_parks
 	else if(this->Area() >= scale*scale*2600)
 		this->areaType=PARK;
-	//if none of the conditions above are satisfied, the block is marked as too small (traffic 
+	//if none of the conditions above are satisfied, the block is marked as too small (traffic
 	//islands of carparks)
 	else{
 		this->areaType=TOO_SMALL;
@@ -186,13 +186,13 @@ CreateBuildingBases
 
 Authors: Richard Konecny & Arron Fitt
 -RETURN: vector of building
-Splits block into building bases according to area size and type of 
+Splits block into building bases according to area size and type of
 buildings, removes bases without street access
 ====================
 */
 vector<tfBuildings> tfBlocks::CreateBuildingBases(double scale){
 	vector<tfBuildings> buildings;
-	//for skyscrapers building base is the plot (block) itself 
+	//for skyscrapers building base is the plot (block) itself
 	if(this->areaType==BSKYSCRAPER){
 		buildings.push_back(tfBuildings (this->points,BuildingType_t::SKYSCRAPER));
 	}
@@ -222,11 +222,11 @@ vector<tfBuildings> tfBlocks::CreateBuildingBases(double scale){
 				this->maxArea=maxArea;
 				this->type=type;
 			}
-			//splits block into two smaller blocks. The way of splitting is following: find the 
-			//longest side, choose a point on this side, create perpendicular line to the lingest 
+			//splits block into two smaller blocks. The way of splitting is following: find the
+			//longest side, choose a point on this side, create perpendicular line to the lingest
 			//side going through this point. This perpendicular line splits block into two parts
 			void Split(tfBlocks block,vector<tfBlocks>& localBlocks){
-				//if area size of block is lower than is required, check if this block have street 
+				//if area size of block is lower than is required, check if this block have street
 				//access and if so save it into localBlocks
 				if(block.Area()<=maxArea){
 					int outer=0;
@@ -255,7 +255,7 @@ vector<tfBuildings> tfBlocks::CreateBuildingBases(double scale){
 							}
 						}
 					}
-					//if block has more than one point lying in some of original block sides, save 
+					//if block has more than one point lying in some of original block sides, save
 					//it bacaues it has street access, otherwise don't save it
 					if(outer>1)
 						localBlocks.push_back(block);
@@ -318,7 +318,7 @@ vector<tfBuildings> tfBlocks::CreateBuildingBases(double scale){
 						A2=secondVertex.y-firstVertex.y;
 						B2=firstVertex.x-secondVertex.x ;
 						C2=A2*firstVertex.x+B2*firstVertex.y;
-						//if current line and perpendicular line to the longest side are not 
+						//if current line and perpendicular line to the longest side are not
 						//parallel, find the second intersection
 						if((A1*B2-A2*B1)!=0){
 							double locX=(B2*C1-B1*C2)/(A1*B2-A2*B1);
