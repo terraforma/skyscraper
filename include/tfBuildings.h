@@ -1,3 +1,6 @@
+#ifndef _BUILDINGS_H_
+#define _BUILDINGS_H_
+
 #include <vector>
 #include "tfPoints.h"
 #include "tfVector.h"
@@ -31,3 +34,5 @@ public:
 	void				SetNumberOfFloors(int,int[]);
 	char*				ReturnType();
 };
+
+#endif /* _BUILDINGS_H_ */

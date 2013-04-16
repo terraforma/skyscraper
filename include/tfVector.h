@@ -1,4 +1,7 @@
-#include <iostream>	
+#ifndef _VECTOR_H_
+#define _VECTOR_H_
+
+#include <iostream>
 #include <string>
 #define PI 3.14159265
 
@@ -23,3 +26,4 @@ public:
 	tfVector Normal(tfVector v);
 };
 
+#endif /* _VECTOR_H_ */

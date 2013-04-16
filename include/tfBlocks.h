@@ -1,3 +1,6 @@
+#ifndef _BLOCKS_H_
+#define _BLOCKS_H_
+
 #include <vector>
 #include "tfBuildings.h"
 
@@ -33,3 +36,5 @@ public:
 	void				SetAreaType(int[],double);
 	vector<tfBuildings> CreateBuildingBases(double);
 };
+
+#endif /* _BLOCKS_H_ */

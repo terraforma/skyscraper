@@ -1,3 +1,6 @@
+#ifndef _POINTS_H_
+#define _POINTS_H_
+
 /*
 ===========================================================================
 tfPoints
@@ -13,3 +16,5 @@ public:
 	tfPoints();
 	float	x,y,z;						//point coordinates
 };
+
+#endif /* _POINTS_H_ */
