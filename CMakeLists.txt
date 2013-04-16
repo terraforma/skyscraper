@@ -6,7 +6,7 @@ FILE(GLOB_RECURSE SKYSCRAPER_HEADERS include/*.h)
 FILE(GLOB_RECURSE SKYSCRAPER_SOURCES src/*.cpp)
 
 # Set libraries and include paths
-SET(LIBS )
+SET(LIBS terra)
 SET(INCLUDE ${PROJECT_SOURCE_DIR}/include)
 
 SET(LIBRARY_OUTPUT_PATH lib/)
