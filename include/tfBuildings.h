@@ -16,7 +16,7 @@ tfBuildings
 
 -public variables: points, buildingType
 -public methods: Height()
-Buildings generated from blocks consist of points (stored in vector in the 
+Buildings generated from blocks consist of points (stored in vector in the
 same order as they are connected), building type (assigned by block class)
 and height of building (needs to be calculated within the class)
 

@@ -41,22 +41,22 @@ int limitsForRoads[]={0,20,100,150}, //population limits for roads width
   that is used for calculation of angle between adjacent nodes
   ===========================================================================
 */
-class localNode{
+class localNode {
 public:
-tfPoints coords; //X and Y coordinates of the node
-double angle; //angle between adjacent nodes
-//constructor
-localNode(tfPoints coords){
-this->coords=coords;
-}
-//default constructor
-localNode(){}
-//calculate deflection angle of line, connecting current node and entered node, from X axis
-//(angle range is -180 - +180)
-void CalculateAngle(localNode node){
-angle=atan2(this->coords.y-node.coords.y,
-				this->coords.x-node.coords.x)*(180/PI);
-};
+	tfPoints coords; //X and Y coordinates of the node
+	double angle; //angle between adjacent nodes
+	//constructor
+	localNode(tfPoints coords){
+		this->coords=coords;
+	}
+	//default constructor
+	localNode(){}
+	//calculate deflection angle of line, connecting current node and entered node, from X axis
+	//(angle range is -180 - +180)
+	void CalculateAngle(localNode node){
+		angle=atan2(this->coords.y-node.coords.y,
+						this->coords.x-node.coords.x)*(180/PI);
+	};
 };
 
 /*
