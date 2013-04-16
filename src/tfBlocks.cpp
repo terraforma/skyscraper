@@ -194,7 +194,7 @@ vector<tfBuildings> tfBlocks::CreateBuildingBases(double scale){
 	vector<tfBuildings> buildings;
 	//for skyscrapers building base is the plot (block) itself
 	if(this->areaType==BSKYSCRAPER){
-		buildings.push_back(tfBuildings (this->points,BuildingType_t::SKYSCRAPER));
+		buildings.push_back(tfBuildings(this->points, SKYSCRAPER));
 	}
 	//for residental and commercial building generate building bases
 	else if(this->areaType==BRESIDENTAL || this->areaType==BCOMMERCIAL){
@@ -376,9 +376,9 @@ vector<tfBuildings> tfBlocks::CreateBuildingBases(double scale){
 		//save building bases to vector of tfBuildings object
 		for(vector<tfBlocks>::iterator it=localBlocks.begin();it!=localBlocks.end();++it){
 			if(type=='r')
-				buildings.push_back(tfBuildings(it->points,BuildingType_t::RESIDENTAL));
+				buildings.push_back(tfBuildings(it->points, RESIDENTAL));
 			else if(type=='c')
-				buildings.push_back(tfBuildings(it->points,BuildingType_t::COMMERCIAL));
+				buildings.push_back(tfBuildings(it->points, COMMERCIAL));
 		}
 	}
 	return buildings;
