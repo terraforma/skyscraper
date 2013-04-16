@@ -85,7 +85,7 @@ vector<tfBlocks> ImportXML(){
 	//nodes
 	vector<tfPoints> points; //store all vertices for each block
 	vector<tfVector> vectors; //vectors of all block sides
-	vector<vector<int>> nodesRelations; //all the adjacent nodes for every node
+	vector<vector<int> > nodesRelations; //all the adjacent nodes for every node
 	vector<localNode> nodes; //all the nodes
 	LibTerra::tfXMLDocument doc; //xml document
 
@@ -140,7 +140,7 @@ vector<tfBlocks> ImportXML(){
 			}
 		}
 	}
-	vector<vector<int>>::iterator iIt=nodesRelations.begin();
+	vector<vector<int> >::iterator iIt=nodesRelations.begin();
 	iIt++;
 	currentNode=iIt-nodesRelations.begin();
 	//create blocks from vector of nodes and sorted relations between them
@@ -195,8 +195,7 @@ vector<tfBlocks> ImportXML(){
 				.erase(nodesRelations[prevPivot].begin()+idOfMinAngle);
 			//search for the first node, which vector of adjacent nodes is not empty, if vectors of
 			//all the nodes are empty, it means that, all the blocks has already been created
-			for(vector<vector<int>>::iterator iIt=nodesRelations.begin();
-				iIt != nodesRelations.end(); ++iIt){
+			for(vector<vector<int> >::iterator iIt=nodesRelations.begin(); iIt != nodesRelations.end(); ++iIt){
 				int i=iIt-nodesRelations.begin();
 				if(nodesRelations[i].size()>0){
 					currentNode=i;
